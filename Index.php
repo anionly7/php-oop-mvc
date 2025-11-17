@@ -3,7 +3,14 @@ require_once 'Mahasiswa.php';
 
 $mhs1 = new Mahasiswa("Mustikaning Handayani", "2310010489");
 $mhs2 = new Mahasiswa("Ajeng Julia Maulanie", "2310010282");
+// 3. Demonstrasi Akses Data (Setter/Getter)
+// Mencoba mengubah NIM (Setter) - Sukses
+echo "<h3 style='color:#2980b9;'>--- DEMO SETTER (mhs1) ---</h3>";
+$mhs1->setNim("1234567"); // 7 digit - Sukses
+// Mencoba mengubah NIM (Setter) - Gagal (validasi di dalam setter menolak)
+$mhs2->setNim("2310010282"); // 3 digit - Gagal
 ?>
+
 <!DOCTYPE html>
 <html lang="id">
 
@@ -85,6 +92,35 @@ $mhs2 = new Mahasiswa("Ajeng Julia Maulanie", "2310010282");
             <em>(Output konstruktor ada di atas hasil sapaan. Output destruktor akan muncul terakhir.)</em>
         </p>
     </div>
+
+    <div class="container">
+        <h1>Modul 3: Encapsulation (Pengecekan Data)</h1>
+
+        <h2>Objek Pertama: <?php echo $mhs1->getNama(); ?></h2>
+        <div class="output">
+            <!-- 4. Memanggil Metode Objek -->
+            <?php echo $mhs1->sayHello(); ?>
+            <p><strong>NIM Saat Ini (via Getter):</strong> <span style="font-weight: bold; color:
+            #e67e22;"><?php echo $mhs1->getNim(); ?></span></p>
+        </div>
+
+        <h2>Objek Kedua: <?php echo $mhs2->getNama(); ?></h2>
+        <div class="output">
+            <!-- Memanggil Metode Objek Kedua -->
+            <?php echo $mhs2->sayHello(); ?>
+            <p><strong>NIM Saat Ini (via Getter):</strong> <span style="font-weight: bold; color:
+            #e67e22;"><?php echo $mhs2->getNim(); ?></span></p>
+            <!-- <p style="color: red;">*Objek ini dibuat dengan NIM tidak valid, namun Setter
+                mencegahnya masuk ke properti.</p> -->
+        </div>
+
+        <p>
+            <em>(Coba hapus method **getNim()** dari kode dan akses NIM secara langsung: **$mhs1-
+                >nim**. Anda akan mendapatkan Fatal Error karena NIM bersifat private!)</em>
+        </p>
+
+    </div>
+
 
 </body>
 
