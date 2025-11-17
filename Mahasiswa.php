@@ -25,4 +25,10 @@ class Mahasiswa
         return "Halo, saya adalah Mahasiswa {$this->nama}.<br>" .
             "NIM saya adalah {$this->nim}. Selamat datang di dunia OOP!";
     }
+
+    public function __destruct()
+    {
+        echo "--> Objek **{$this->nama}** telah dihancurkan (Destruktor berjalan).<br>";
+    }
+
 }

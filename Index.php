@@ -64,6 +64,28 @@ $mhs2 = new Mahasiswa("Ajeng Julia Maulanie", "2310010282");
         <p><em>(Lihat `Mahasiswa.php` untuk definisi kelas, dan kode di `index.php` untuk
                 cara menggunakannya.)</em></p>
     </div>
+
+    <div class="container">
+        <h1>Modul 2: Konstruktor, Destruktor, dan $this</h1>
+
+        <h2>Objek Pertama: <?php echo $mhs1->getNama(); ?></h2>
+        <div class="output">
+            <!-- 4. Memanggil Metode Objek -->
+            <?php echo $mhs1->sayHello(); ?>
+
+        </div>
+
+        <h2>Objek Kedua: <?php echo $mhs2->getNama(); ?></h2>
+        <div class="output">
+            <!-- Memanggil Metode Objek Kedua -->
+            <?php echo $mhs2->sayHello(); ?>
+        </div>
+
+        <p>
+            <em>(Output konstruktor ada di atas hasil sapaan. Output destruktor akan muncul terakhir.)</em>
+        </p>
+    </div>
+
 </body>
 
 </html>
