@@ -11,14 +11,15 @@ $mhs1->setNim("1234567"); // 7 digit - Sukses
 $mhs2->setNim("1234567"); // 3 digit - Gagal
 
 // Masukkan (include) kedua file kelas 
-require_once 'User.php'; 
-require_once 'Admin.php'; 
+require_once 'User.php';
+require_once 'LoginInterface.php';
+require_once 'Admin.php';
 
 // 1. Instansiasi Objek User Biasa 
-$user1 = new User("Mustikaning Handayani"); 
+$user1 = new User("Mustikaning Handayani");
 
 // 2. Instansiasi Objek Admin (Kelas Anak) 
-$admin1 = new Admin("Ajeng Julia Maulanie");  
+$admin1 = new Admin("Ajeng Julia Maulanie");
 ?>
 
 <!DOCTYPE html>
@@ -62,8 +63,20 @@ $admin1 = new Admin("Ajeng Julia Maulanie");
             border-radius: 6px;
         }
 
-        .role-user { color: #27ae60; font-weight: bold; } 
-        .role-admin { color: #e74c3c; font-weight: bold; } 
+        .role-user {
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .role-admin {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .action {
+            color: #16a085;
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -80,9 +93,9 @@ $admin1 = new Admin("Ajeng Julia Maulanie");
         <div class="output">
             <?= $mhs2->sayHello(); ?>
         </div>
-
         <p><em>(Lihat `Mahasiswa.php` untuk definisi kelas, dan kode di `index.php` untuk
-                cara menggunakannya.)</em></p>
+                cara menggunakannya.)</em>
+        </p>
     </div>
 
     <div class="container">
@@ -100,7 +113,6 @@ $admin1 = new Admin("Ajeng Julia Maulanie");
             <!-- Memanggil Metode Objek Kedua -->
             <?php echo $mhs2->sayHello(); ?>
         </div>
-
         <p>
             <em>(Output konstruktor ada di atas hasil sapaan. Output destruktor akan muncul terakhir.)</em>
         </p>
@@ -126,38 +138,61 @@ $admin1 = new Admin("Ajeng Julia Maulanie");
             <!-- <p style="color: red;">*Objek ini dibuat dengan NIM tidak valid, namun Setter
                 mencegahnya masuk ke properti.</p> -->
         </div>
-
         <p>
             <em>(Coba hapus method **getNim()** dari kode dan akses NIM secara langsung: **$mhs1-
                 >nim**. Anda akan mendapatkan Fatal Error karena NIM bersifat private!)</em>
         </p>
     </div>
 
-    <div class="container"> 
-        <h1>Modul 4: Inheritance (Pewarisan User dan Admin)</h1> 
-        <h2>Pengguna Biasa (Kelas User)</h2> 
-            <div class="output"> 
-                <p style="color: #27ae60; font-size: 1.1em;"><?php echo $user1->salam(); ?></p> 
-                    <p>Peran yang diwarisi: <span class="role-user"><?php echo $user1->getRole(); 
-                ?></span></p> 
-            </div> 
+    <div class="container">
+        <h1>Modul 4: Inheritance (Pewarisan User dan Admin)</h1>
+        <h2>Pengguna Biasa (Kelas User)</h2>
+        <div class="output">
+            <p style="color: #27ae60; font-size: 1.1em;"><?php echo $user1->salam(); ?></p>
+            <p>Peran yang diwarisi: <span class="role-user"><?php echo $user1->getRole();
+            ?></span></p>
+        </div>
 
-        <h2>Administrator (Kelas Admin)</h2> 
-            <div class="output"> 
-                <!-- Output dari metode yang telah di-override --> 
-                <p style="color: #e74c3c; font-size: 1.1em;"><?php echo $admin1->salam(); ?></p> 
-                <!-- Memanggil metode yang hanya dimiliki oleh Admin --> 
-                <p><?php echo $admin1->kelolaSistem(); ?></p> 
-                <p>Peran yang diwarisi: <span class="role-admin"><?php echo $admin1->getRole(); 
-                ?></span></p> 
-            </div> 
- 
-        <p> 
-            <em>(Perhatikan bahwa objek Admin memiliki metode **salam()** yang berbeda dan dapat 
-            menggunakan metode dasar **getRole()** dari kelas User.)</em> 
-        </p> 
+        <h2>Administrator (Kelas Admin)</h2>
+        <div class="output">
+            <!-- Output dari metode yang telah di-override -->
+            <p style="color: #e74c3c; font-size: 1.1em;"><?php echo $admin1->salam(); ?></p>
+            <!-- Memanggil metode yang hanya dimiliki oleh Admin -->
+            <p><?php echo $admin1->kelolaSistem(); ?></p>
+            <p>Peran yang diwarisi: <span class="role-admin"><?php echo $admin1->getRole();
+            ?></span></p>
+        </div>
+
+        <p>
+            <em>(Perhatikan bahwa objek Admin memiliki metode **salam()** yang berbeda dan dapat
+                menggunakan metode dasar **getRole()** dari kelas User.)</em>
+        </p>
     </div>
 
-</body>
+    <div class="container">
+        <h1>Modul 5: Abstraction & Interface (Kontrak Perilaku)</h1>
+        <h2>Administrator (Kelas Admin)</h2>
+        
+        <div class="output">
+            <!-- Panggilan metode yang diwarisi dan di-override -->
+            <p><?php echo $admin1->salam(); ?></p>
+            <!-- Panggilan metode dari Interface -->
+            <p class="action">Action 1: <?php echo $admin1->login(); ?></p>
+            <p class="action">Action 2: <?php echo $admin1->kelolaSistem(); ?></p>
+            <p class="action">Action 3: <?php echo $admin1->logout(); ?></p>
+        </div>
 
+        <h2>Pengguna Biasa (Kelas User)</h2>
+        <div class="output">
+            <p><?php echo $user1->salam(); ?></p>
+            <!-- PERHATIKAN: User TIDAK memiliki metode login() atau logout() -->
+            <p style="color: red;">*Objek User tidak dapat memanggil login() karena tidak
+                mengimplementasikan LoginInterface.</p>
+        </div>
+        <p>
+            <em>(Kelas Admin kini memiliki semua metode dari User PLUS semua metode yang diwajibkan
+                oleh LoginInterface.)</em>
+        </p>
+    </div>
+</body>
 </html>
