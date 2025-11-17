@@ -8,7 +8,17 @@ $mhs2 = new Mahasiswa("Ajeng Julia Maulanie", "2310010282");
 echo "<h3 style='color:#2980b9;'>--- DEMO SETTER (mhs1) ---</h3>";
 $mhs1->setNim("1234567"); // 7 digit - Sukses
 // Mencoba mengubah NIM (Setter) - Gagal (validasi di dalam setter menolak)
-$mhs2->setNim("2310010282"); // 3 digit - Gagal
+$mhs2->setNim("1234567"); // 3 digit - Gagal
+
+// Masukkan (include) kedua file kelas 
+require_once 'User.php'; 
+require_once 'Admin.php'; 
+
+// 1. Instansiasi Objek User Biasa 
+$user1 = new User("Mustikaning Handayani"); 
+
+// 2. Instansiasi Objek Admin (Kelas Anak) 
+$admin1 = new Admin("Ajeng Julia Maulanie");  
 ?>
 
 <!DOCTYPE html>
@@ -51,6 +61,9 @@ $mhs2->setNim("2310010282"); // 3 digit - Gagal
             padding: 15px;
             border-radius: 6px;
         }
+
+        .role-user { color: #27ae60; font-weight: bold; } 
+        .role-admin { color: #e74c3c; font-weight: bold; } 
     </style>
 </head>
 
@@ -118,9 +131,32 @@ $mhs2->setNim("2310010282"); // 3 digit - Gagal
             <em>(Coba hapus method **getNim()** dari kode dan akses NIM secara langsung: **$mhs1-
                 >nim**. Anda akan mendapatkan Fatal Error karena NIM bersifat private!)</em>
         </p>
-
     </div>
 
+    <div class="container"> 
+        <h1>Modul 4: Inheritance (Pewarisan User dan Admin)</h1> 
+        <h2>Pengguna Biasa (Kelas User)</h2> 
+            <div class="output"> 
+                <p style="color: #27ae60; font-size: 1.1em;"><?php echo $user1->salam(); ?></p> 
+                    <p>Peran yang diwarisi: <span class="role-user"><?php echo $user1->getRole(); 
+                ?></span></p> 
+            </div> 
+
+        <h2>Administrator (Kelas Admin)</h2> 
+            <div class="output"> 
+                <!-- Output dari metode yang telah di-override --> 
+                <p style="color: #e74c3c; font-size: 1.1em;"><?php echo $admin1->salam(); ?></p> 
+                <!-- Memanggil metode yang hanya dimiliki oleh Admin --> 
+                <p><?php echo $admin1->kelolaSistem(); ?></p> 
+                <p>Peran yang diwarisi: <span class="role-admin"><?php echo $admin1->getRole(); 
+                ?></span></p> 
+            </div> 
+ 
+        <p> 
+            <em>(Perhatikan bahwa objek Admin memiliki metode **salam()** yang berbeda dan dapat 
+            menggunakan metode dasar **getRole()** dari kelas User.)</em> 
+        </p> 
+    </div>
 
 </body>
 
