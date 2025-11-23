@@ -1,0 +1,11 @@
+Nama	: Mustikaning Handayani
+NPM	: 2310010489
+Kelas	: 5A REG TI BJB
+Jawaban soal dimodul 6 (Praktikum Web 2)
+
+Ketika pengguna membuka URL situs.com/mahasiswa/index, browser akan mengirimkan request ke server, dan request tersebut pertama kali diterima oleh Front Controller atau Router. 
+Router kemudian membaca URL dan menentukan bahwa yang diminta adalah MahasiswaController dengan method index(). Setelah itu, Controller mulai bekerja dengan memanggil Model untuk mengambil data daftar mahasiswa dari database. Model memproses dan mengembalikan data tersebut kembali ke Controller. 
+Setelah data diterima, Controller memilih View yang sesuai dan mengirimkan data tersebut ke View untuk ditampilkan. Kemudian View menghasilkan halaman HTML yang berisi daftar mahasiswa dan mengirimkannya kembali ke browser. Akhirnya browser menampilkan halaman tersebut kepada pengguna.
+
+Alur ringkasnya:
+Browser → Router → Controller → Model → Controller → View → Browser
